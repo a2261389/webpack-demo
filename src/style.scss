@@ -22,13 +22,27 @@
     text-align: center;
 }
 
+.h2 {
+    font-size: 26px;
+    color: #eee;
+    text-align: center;
+}
+
 .p {
     color: #eee;
-    border-radius:10%;
+    border-radius: 10%;
     border: 3px solid #ffff;
     box-shadow: hue($color: #ffffff);
     line-height: 10px;
     padding: 20px;
     text-align: center;
     font-size: 24px;
+}
+
+.plus-button {
+    color: #fff;
+    background-color: #3f51b5;
+    font-size: 20px;
+    padding: 20px;
+    line-height: 10px;
 }

@@ -4,19 +4,31 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Webpack = require('webpack');
 
 module.exports = {
-    entry: './src/main.js',
+    entry: ["@babel/polyfill", path.resolve(__dirname, './src/main.js')],
     output: {
         filename: 'main.[hash].js',
         path: path.resolve(__dirname, 'dist')
+    },
+    devServer: {
+        port: 3000,
+        hot: true,
+        contentBase: 'dist',
+    },
+    resolve: {
+        alias: {
+            'react': 'react',
+            '@': path.resolve(__dirname, 'src')
+        },
+        extensions: ['*', '.js', '.json', '.jsx']
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
                 use: [
-                    'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
@@ -32,8 +44,7 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
-                    MiniCssExtractPlugin.loader,
+                    !isProduction ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -120,6 +131,7 @@ module.exports = {
             ignoreOrder: false
         }),
         new CleanWebpackPlugin(),
+        new Webpack.HotModuleReplacementPlugin(),
     ],
     optimization: {
         minimizer: [
@@ -134,5 +146,5 @@ module.exports = {
                 }
             })
         ]
-    }
+    },
 };
