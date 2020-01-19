@@ -1,0 +1,1 @@
+document.getElementsByClassName('p')[0].innerHTML += ' [index.js loaded]'
